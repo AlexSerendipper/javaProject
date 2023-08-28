@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--映射文件的命名空间（namespace） 需要与 mapper接口的全类名 保持一致-->
+<mapper namespace="lottery.mapper.UserMapper">
+    <!--映射文件中编写SQL的标签的id属性 需要与 接口中方法的方法名 保持一致-->
+    <sql id="insertFields">
+        user_id,username,password,salt,phone_number,email_address,score,create_time,lottery_times
+    </sql>
+
+    <sql id="selectFields">
+        user_id,username,password,salt,phone_number,email_address,score,create_time,lottery_times
+    </sql>
+
+    <!-- *******************************增***************************************   -->
+    <!--insertUser-->
+    <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="userId">
+        insert into user (username,password,salt,email_address,score,create_time)
+        values(#{username}, #{password}, #{salt}, #{emailAddress}, #{score}, #{createTime})
+    </insert>
+
+    <!-- ********************************删**************************************   -->
+    <!--  -->
+
+
+    <!-- *********************************改*************************************   -->
+    <update id="updatePhone">
+        update user set phone_number = #{phoneNumber} where user_id = #{userId}
+    </update>
+
+    <update id="updateAddress">
+        update user set email_address = #{emailAddress} where user_id = #{userId}
+    </update>
+
+    <update id="updatePassword">
+        update user set password = #{password} where user_id = #{userId}
+    </update>
+
+    <!-- ********************************查**************************************   -->
+    <!-- getUser -->
+    <select id="getUser" resultType="User">
+        select <include refid="selectFields"></include>
+        from user
+    </select>
+
+    <!-- getUserById -->
+    <select id="getUserById" resultType="User">
+        select <include refid="selectFields"></include>
+        from user
+        where user_id=#{userId};
+    </select>
+
+    <!--getUserByName-->
+    <select id="getUserByName" resultType="User">
+        select <include refid="selectFields"></include>
+        from user
+        where username=#{username};
+    </select>
+
+    <!--getUserByEmail-->
+    <select id="getUserByEmail" resultType="User">
+        select <include refid="selectFields"></include>
+        from user
+        where email_address=#{emailAddress};
+    </select>
+</mapper>

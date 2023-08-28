@@ -1,0 +1,336 @@
+@charset "UTF-8";
+
+@keyframes shiny {
+  0% {
+    fill: white;
+  }
+
+  50% {
+    fill: #ffc242;
+  }
+
+  100% {
+    fill: white;
+  }
+}
+
+/* 
+* {
+  padding: 0;
+  margin: 0;
+  font-family: '微軟正黑體';
+} */
+
+body {
+  background-color: #3dbfbb;
+}
+
+
+/* .container {
+  max-width: 1000px;
+  min-width: 400px;
+  margin: 0 auto;
+  overflow: hidden;
+} */
+
+/* header {
+  text-align: center;
+  padding: 50px;
+} */
+
+section.turntable {
+  position: relative;
+  max-width: 1000px;
+  max-height: 1000px;
+}
+
+section.turntable button.turntable_btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: none;
+  border: none;
+  outline: none;
+  font-weight: 900;
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  font-size: 70px;
+  color: #0080C0;
+  background-color: #ffb929;
+  cursor: pointer;
+}
+
+section.turntable button.turntable_btn:active,
+section.turntable button.turntable_btn:disabled {
+  cursor: default;
+}
+
+section.turntable button.turntable_btn:active::after,
+section.turntable button.turntable_btn:disabled::after {
+  box-shadow: none;
+  margin-top: 2px;
+  background-color: #ffda8f;
+}
+
+section.turntable button.turntable_btn::after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  content: '';
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  background-color: #ffe3a8;
+  z-index: -1;
+  box-shadow: 1px 2px 4px #754f00;
+}
+
+@media screen and (max-width: 767px) {
+  section.turntable button.turntable_btn {
+    font-size: 42px;
+  }
+}
+
+/* section.turntable div.list {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: none;
+} */
+
+section.turntable div.list {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  width: 70%;
+  height: 70%;
+  text-align: center;
+}
+
+section.turntable div.list ul {
+  list-style: none;
+  width: 100%;
+  height: 100%;
+  transform: rotate(0deg);
+}
+
+section.turntable div.list ul.go {
+  animation: go 4s cubic-bezier(0.25, 0.46, 0.45, 1) 1;
+  /* -webkit-animation: go .8s linear 4; */
+}
+
+section.turntable div.list ul li {
+  /* 奖品名称颜色 */
+  color: #fff;
+  font-size: 22.4px;
+  position: absolute;
+  width: 82%;
+  height: 100%;
+}
+
+section.turntable div.list ul li:nth-child(2) {
+  transform: rotate(315deg);
+}
+
+section.turntable div.list ul li:nth-child(3) {
+  transform: rotate(270deg);
+}
+
+section.turntable div.list ul li:nth-child(4) {
+  transform: rotate(225deg);
+}
+
+section.turntable div.list ul li:nth-child(5) {
+  transform: rotate(180deg);
+}
+
+section.turntable div.list ul li:nth-child(6) {
+  transform: rotate(135deg);
+}
+
+section.turntable div.list ul li:nth-child(7) {
+  transform: rotate(90deg);
+}
+
+section.turntable div.list ul li:nth-child(8) {
+  transform: rotate(45deg);
+}
+
+@media screen and (max-width: 767px) {
+  section.turntable div.list ul li {
+    font-size: 14px;
+  }
+}
+
+section.turntable div.list ul li img {
+  width: 70px;
+  margin-top: 5px;
+}
+
+@media screen and (max-width: 767px) {
+  section.turntable div.list ul li img {
+    width: 40px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  section.turntable div.list ul li img {
+    display: none;
+  }
+}
+
+section.turntable svg>circle {
+  fill: none;
+  stroke: #006fa7;
+  stroke-width: 5px;
+}
+
+section.turntable svg g.polyline.go {
+  animation: go 4s cubic-bezier(0.25, 0.46, 0.45, 1) 1;
+  /* -webkit-animation: go .8s linear 4; */
+}
+
+section.turntable svg g.polyline polyline {
+  fill: #0080C0;
+}
+
+section.turntable svg g.polyline polyline:nth-child(odd) {
+  fill: #00a2f3;
+}
+
+section.turntable svg g.circle circle {
+  fill: #fff;
+  stroke: none;
+  box-shadow: 0px 2px 5px #ccc;
+}
+
+section.turntable svg g.circle circle:nth-child(odd) {
+  animation: shiny .8s linear infinite;
+  -webkit-animation: shiny .8s linear infinite;
+}
+
+section.turntable svg g.circle circle:nth-child(odd).go {
+  animation: go 4s cubic-bezier(0.25, 0.46, 0.45, 1) 1, shiny .8s linear infinite;
+  /* -webkit-animation: go .8s linear 4, shiny .8s linear infinite; */
+}
+
+section.turntable svg g.circle circle:nth-child(even) {
+  animation: shiny .8s 0.5s linear infinite;
+  -webkit-animation: shiny .8s 0.5s linear infinite;
+}
+
+section.turntable svg g.circle circle:nth-child(even).go {
+  animation: go 4s cubic-bezier(0.25, 0.46, 0.45, 1) 1, shiny .8s 0.5s linear infinite;
+  /* -webkit-animation: go .8s linear 4, shiny .8s 0.5s linear infinite; */
+}
+
+section.turntable svg g.mark circle {
+  fill: #FFB10F;
+}
+
+section.turntable svg g.mark circle.round {
+  fill: none;
+  stroke: #ffebc2;
+}
+
+section.turntable svg g.mark polyline {
+  fill: #FFB10F;
+  stroke: none;
+}
+
+section.turntable svg g.bottom {
+  fill: rgba(0, 0, 0, 0.4);
+}
+
+.container-card {
+  position: absolute;
+  /* width: 100%;
+  height: 100%; */
+  left: 0;
+  top: 120px;
+}
+
+.background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1000;
+  pointer-events: none;
+  background-image: url(http://d1bkv3cogj5fiu.cloudfront.net/wp-content/uploads/2016/02/photo-1429051883746-afd9d56fbdaf-1140x642.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -999;
+  background-color: rgba(40, 90, 100, 0.3);
+}
+
+.information-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  width: 450px;
+  padding: 25px;
+  background-color: #00000099;
+}
+
+.information-card>ul {
+  flex: 1;
+  list-style: none;
+  margin-right: 10px;
+}
+
+.information-card>ul>li {
+  padding: 5px;
+  font-size: 20px;
+}
+
+.menu-icons {
+  margin-right: 5px;
+}
+
+
+
+
+.profile-wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  border-radius: 100px;
+  background-color: white;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.spliter {
+  position: absolute;
+  height: 130px;
+  width: 1px;
+  background-color: #ff888888;
+}

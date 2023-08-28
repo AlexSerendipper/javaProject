@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!--	&lt;!&ndash;用户访问该页面，在此处生成CSRF令牌的key&ndash;&gt;-->
+  <!--	<meta name="_csrf_header" th:content="${_csrf.headerName}">-->
+  <!--	&lt;!&ndash;用户访问该页面，在此处生成CSRF令牌的value&ndash;&gt;-->
+  <!--	<meta name="_csrf" th:content="${_csrf.token}">-->
+  <!--	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">-->
+  <link rel="icon" th:href="@{/img/icon.jpg}" />
+  <div th:replace="index::cssStatic"></div>
+  <link rel="stylesheet" th:href="@{/css/login.css}" />
+
+  <link rel="stylesheet" type="text/css" th:href="@{/css/turntable.css}">
+  <!--用th语法，就相当于是发起一个请求，没有对应的控制器就自然而然找static目录下的静态资源-->
+  <title>兴业银行APP积分-抽奖</title>
+</head>
+
+<body>
+  <div class="nk-container">
+    <!-- 头部 -->
+    <header class="bg-gray sticky-top" th:fragment="header">
+      <div class="container">
+        <!-- 导航 -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+          <!-- logo -->
+          <a class="navbar-brand" href="#"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <!-- 功能 -->
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item ml-3 btn-group-vertical">
+                <a style="color:#000;" class="nav-link" th:href="@{/index}">首页</a>
+              </li>
+              <li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser==null}">
+                <a style="color:#000;" class="nav-link" th:href="@{/register}">注册</a>
+              </li>
+              <li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser==null}">
+                <a style="color:#000;" class="nav-link" th:href="@{/login}">登录</a>
+              </li>
+              <li class="nav-item ml-3 btn-group-vertical dropdown" th:if="${loginUser!=null}">
+                <a  class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+<!--                  <img th:src="${loginUser.headerUrl}" class="rounded-circle" style="width:30px;" />-->
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item text-center" th:href="@{|/user/profile/${loginUser.userId}|}">个人主页</a>
+                  <a class="dropdown-item text-center" th:href="@{/user/setting}">账号设置</a>
+                  <a class="dropdown-item text-center" th:href="@{/logout}">退出登录</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- 内容 -->
+    <div class="main">
+      <div class="container">
+        <section class="turntable">
+          <div class="list">
+            <ul></ul>
+          </div>
+          <button class="turntable_btn" type="button">GO</button>
+          <svg viewbox="-50 -50 100 100">
+            <g class="bottom">
+              <ellipse cx="0" cy="40" rx="30" ry="4"></ellipse>
+            </g>
+            <g class="polyline">
+              <polyline points="-16,-38 16,-38 0,0"></polyline>
+              <polyline points="16,-38 38,-16 0,0"></polyline>
+              <polyline points="38,-16 38,16 0,0"></polyline>
+              <polyline points="0,0 38,16 16,38"></polyline>
+              <polyline points="0,0 16,38 -16,38"></polyline>
+              <polyline points="0,0 -16,38 -38,16"></polyline>
+              <polyline points="-38,-16 -38,16 0,0"></polyline>
+              <polyline points="-16,-38 -38,-16 0,0"></polyline>
+            </g>
+            <circle cx="0" cy="0" r="40"></circle>
+            <g class="circle">
+              <circle cx="0" cy="-40" r="0.8"></circle>
+              <circle cx="15.6" cy="-36.8" r="0.8"></circle>
+              <circle cx="28.5" cy="-28" r="0.8"></circle>
+              <circle cx="36.8" cy="-15.6" r="0.8"></circle>
+              <circle cx="40" cy="0" r="0.8"></circle>
+              <circle cx="36.8" cy="15.6" r="0.8"></circle>
+              <circle cx="28.5" cy="28" r="0.8"></circle>
+              <circle cx="15.6" cy="36.8" r="0.8"></circle>
+              <circle cx="0" cy="40" r="0.8"></circle>
+              <circle cx="-36.8" cy="15.6" r="0.8"></circle>
+              <circle cx="-28.5" cy="28" r="0.8"></circle>
+              <circle cx="-15.6" cy="36.8" r="0.8"></circle>
+              <circle cx="-40" cy="0" r="0.8"></circle>
+              <circle cx="-36.8" cy="-15.6" r="0.8"></circle>
+              <circle cx="-28.5" cy="-28" r="0.8"></circle>
+              <circle cx="-15.6" cy="-36.8" r="0.8"></circle>
+            </g>
+            <g class="mark">
+              <circle cx="0" cy="-43" r="4"></circle>
+              <polyline points="-3.5,-41 3.5,-41 0,-35"></polyline>
+              <circle class="round" cx="0" cy="-43" r="1.5"></circle>
+            </g>
+          </svg>
+        </section>
+        <div class="container-card">
+          <div class="information-card">
+            <div class="profile-wrapper">
+              <div class="avatar-wrapper">
+                <image class="avatar" src="https://avatars1.githubusercontent.com/u/26326015?s=400&v=4" />
+              </div>
+            </div>
+            <div class="spliter"></div>
+            <ul>
+              <li style="color: #eeeeee">
+                <span>积分：<span id="points" >加载中...</span> </span>
+              </li>
+              <li style="color: #eeeeee">
+                <span>抽奖次数：<span id="lotteryCount">加载中...</span> </span>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+  <script th:src="@{/js/global.js}"></script>
+  <script th:src="@{/js/turantable.js}"></script>
+</body>
+
+</html>

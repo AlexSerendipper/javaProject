@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--映射文件的命名空间（namespace） 需要与 mapper接口的全类名 保持一致-->
+<mapper namespace="community.mapper.DiscussPostMapper">
+    <sql id="selectField">
+        id,user_id,title,content,type,status,create_time,comment_count,score
+    </sql>
+    <sql id="insertField">
+        user_id,title,content,type,status,create_time,comment_count,score
+    </sql>
+    <!--映射文件中编写SQL的标签的id属性 需要与 接口中方法的方法名 保持一致-->
+    <!-- *******************************增***************************************   -->
+    <!-- insertDiscussPost -->
+    <insert id="insertDiscussPost" parameterType="discussPost" useGeneratedKeys="true" keyProperty="id">
+        insert into discuss_post(<include refid="insertField"></include>)
+        values(#{userId},#{title},#{content},#{type},#{status},#{createTime},#{commentCount},#{score})
+    </insert>
+
+
+    <!-- ********************************删**************************************   -->
+    <!--  -->
+
+
+    <!-- *********************************改*************************************   -->
+    <!-- updateCommentCount -->
+    <update id="updateCommentCount">
+        update discuss_post set comment_count=#{commentCount} where id=#{id}
+    </update>
+
+    <!-- ********************************查**************************************   -->
+    <!-- selectDiscussPosts -->
+    <select id="selectDiscussPosts" resultType="discussPost">
+        select <include refid="selectField"></include>
+        from discuss_post
+        where status!=2
+        <if test="userId!=0">
+            and user_id = #{userId}
+        </if>
+        <if test="orderMode==0">
+            order by `type` desc, create_time desc
+        </if>
+        <if test="orderMode==1">
+            order by `type` desc, score desc, create_time desc
+        </if>
+    </select>
+
+    <select id="countDiscussPosts" resultType="int">
+        select count(*)
+        from discuss_post
+        where status!=2
+        <if test="userId!=0">
+            and user_id = #{userId}
+        </if>
+    </select>
+
+    <select id="getDiscussPostById" resultType="discussPost">
+        select <include refid="selectField"></include>
+        from discuss_post
+        where id=#{id}
+    </select>
+
+    <update id="updateType">
+        update discuss_post set type = #{type} where id = #{id}
+    </update>
+
+    <update id="updateStatus">
+        update discuss_post set status = #{status} where id = #{id}
+    </update>
+
+    <update id="updateScore">
+        update discuss_post set score = #{score} where id = #{id}
+    </update>
+</mapper>

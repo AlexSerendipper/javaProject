@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--映射文件的命名空间（namespace） 需要与 mapper接口的全类名 保持一致-->
+<mapper namespace="lottery.mapper.PrizeMapper">
+    <!--映射文件中编写SQL的标签的id属性 需要与 接口中方法的方法名 保持一致-->
+    <sql id="insertFields">
+        prize_id,prize_name,prize_num,prize_rank
+    </sql>
+
+    <sql id="selectFields">
+        prize_id,prize_name,prize_num,prize_rank
+    </sql>
+    <!-- *******************************增***************************************   -->
+    <!--insertUser-->
+    <insert id="insertPrize" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        insert into prize_inventory (<include refid="insertFields"></include>)
+        values(#{prizeName}, #{prizeNum}, #{prizeRank})
+    </insert>
+
+    <!-- ********************************删**************************************   -->
+    <!--  -->
+
+
+    <!-- *********************************改*************************************   -->
+    <update id="updateStatus">
+        update prize_inventory set prize_rank = #{prizeRank} where prize_id = #{prizeId}
+    </update>
+
+    <update id="updateHeader">
+        update prize_inventory set prize_num = #{prizeNum} where prize_id = #{prizeId}
+    </update>
+
+    <update id="updatePassword">
+        update prize_inventory set prize_name = #{prizeName} where prize_id = #{prizeId}
+    </update>
+
+    <!-- ********************************查**************************************   -->
+    <!-- getUserById -->
+    <select id="getPrizeById" resultType="PrizeInventory">
+        select <include refid="selectFields"></include>
+        from prize_inventory
+        where prize_id=#{prizeId};
+    </select>
+
+    <!--getUserByName-->
+    <select id="getPrizeByName" resultType="PrizeInventory">
+        select <include refid="selectFields"></include>
+        from prize_inventory
+        where prize_name=#{prizeName};
+    </select>
+
+
+
+</mapper>

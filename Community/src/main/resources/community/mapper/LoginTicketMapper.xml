@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--映射文件的命名空间（namespace） 需要与 mapper接口的全类名 保持一致-->
+<mapper namespace="community.mapper.LoginTicketMapper">
+    <!--映射文件中编写SQL的标签的id属性 需要与 接口中方法的方法名 保持一致-->
+    <!-- *******************************增***************************************   -->
+    <!-- insertLoginTicket -->
+    <insert id="insertLoginTicket" useGeneratedKeys="true" keyProperty="id">
+        insert into login_ticket (user_id,ticket,status,expired)
+        values(#{userId},#{ticket},#{status},#{expired})
+    </insert>
+
+    <!-- ********************************删**************************************   -->
+    <!--  -->
+
+
+    <!-- *********************************改*************************************   -->
+    <!-- updateStatus -->
+    <update id="updateStatus">
+        update login_ticket set status=#{status} where ticket=#{ticket}
+    </update>
+
+    <!-- ********************************查**************************************   -->
+    <!-- selectByTicket  -->
+    <select id="selectByTicket" resultType="loginTicket">
+        select id,user_id,ticket,status,expired
+        from login_ticket where ticket = #{ticket}
+    </select>
+    <!--getTicketByUserId-->
+    <select id="getTicketByUserId" resultType="string">
+        SELECT ticket
+        FROM login_ticket WHERE user_id = #{userId} AND STATUS=0
+    </select>
+</mapper>

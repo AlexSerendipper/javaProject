@@ -1,0 +1,10 @@
+management:
+  endpoints:
+    enabled-by-default: true  # 开启所有端点（默认为true）
+    web:
+      exposure:
+        include: '*'  # 以web方式暴露所有端点
+        exclude: caches  # 不暴露caches端点
+  endpoint:
+    health:
+      show-details: always  # 显示健康端口的详细信息
